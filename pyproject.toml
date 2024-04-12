@@ -1,5 +1,5 @@
 [project]
-name = "mirage_clinics"
+name = "mirage_clinics_app"
 authors = [
     { name = "ITDept", email = "it@mirageclinics.com"}
 ]
