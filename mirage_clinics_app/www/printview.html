@@ -2,7 +2,8 @@
 <html lang="{{ lang }}" dir="{{ layout_direction }}">
 <head>
 	{% if doctype == "Request for Quotation" %}
-		<meta property="og:image" content="{{frappe.get_url()}}/files/rfq.png">
+		<meta property="og:image" content="{{frappe.get_url()}}/files/rfq3.png">
+		<meta property="og:description" content="Dear {{doc.suppliers[0].supplier}}, we kindly request that you provide us with your most competitive quote for the attached Request for Quotation (RFQ). We appreciate your prompt response. Thank you!">
 	{% endif %}
 	<meta property="og:url" content="{{frappe.get_url() + '/' + doctype.replace(' ', '%20') + '/' + name + '?key=' + frappe.get_doc(doctype, name).get_signature()}}">
 	<meta property="og:type" content="website">
@@ -11,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{ title }}</title>
 	<meta name="generator" content="frappe">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	{{ include_style('print.bundle.css') }}
 	{% if print_style %}
 		<style>
