@@ -1,20 +1,20 @@
-## [1.0.1] - 2024-04-13
-<!-- ### Added
-- Added new logging features to improve diagnostics.
-- Included examples in the README for easier startup. -->
+## [1.0.2] - 2024-04-13
+### Added
+- Attempting to run applyWatermark directly from printview.html
 
-<!-- ### Changed
-- Updated library dependencies to the latest stable versions.
-- Modified database configuration to enhance security settings. -->
+## [1.0.1] - 2024-04-13
+### Added
+- Added SweetAlert custom CSS styling.
+
+### Changed
+- Changed SWAL Styling.
 
 ### Deprecated
 - Deprecated `drawDynamicTextOnCanvas()` in favor of `applyWatermark(docName)`.
+- Deprecated the old modal in favor of `Sweet Alert`.
 
-<!-- ### Removed
-- Removed watermarking signature fields. -->
+### Removed
+- Removed drawDynamicTextOnCanvas().
 
-<!-- ### Fixed
+### Fixed
 - Fixed a bug in user authentication flow causing crashes under certain conditions.
-
-### Security
-- Patched SQL injection vulnerability in search functionality. -->

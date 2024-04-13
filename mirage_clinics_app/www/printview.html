@@ -87,6 +87,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.min.js"></script>
 	<script src="/assets/mirage_clinics_app/js/printview_script.js"></script>
 	<script>window.onbeforeprint = addPageNumbers; window.onafterprint = removePageNumbers;</script>
+	<script>window.addEventListener('load', function() {applyWatermark('{{ doc.name }}');});
+</script>
 
 </body>
 {%- if comment -%}

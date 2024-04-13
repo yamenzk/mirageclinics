@@ -271,3 +271,13 @@ margin: 5px 0;
     -webkit-print-color-adjust: exact;
     background-color: #00545c;
 }
+.confirm-button-custom, .swal2-confirm.swal2-styled {
+    background-color: #00545c !important; /* Deep Teal color for the button */
+    border-color: #004e54 !important; /* Slightly darker border for better aesthetics */
+    color: #fff !important;
+}
+
+.confirm-button-custom:focus, .swal2-confirm.swal2-styled:focus {
+    outline: none !important; /* Remove default outline */
+    box-shadow: 0 0 10px #00a6a2 !important; /* Teal glow for visual focus indication */
+}
