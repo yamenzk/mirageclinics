@@ -4,6 +4,7 @@ app_publisher = "ITDept"
 app_description = "Mirage Clinics Customizations"
 app_email = "it@mirageclinics.com"
 app_license = "mit"
+app_include_css = "/assets/mirage_clinics_app/css/printview_custom.css"
 # required_apps = []
 
 # Includes in <head>
