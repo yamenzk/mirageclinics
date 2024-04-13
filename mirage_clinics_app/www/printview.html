@@ -46,7 +46,7 @@
 	   </div>
 	   <a href="/api/method/frappe.utils.print_format.download_pdf?doctype={{doctype|e}}&name={{name|e}}&key={{key|e}}" class="menu-item" data-tooltip="Export as PDF"><span class="material-symbols-rounded">picture_as_pdf</span></a>
 	   <a onclick="window.print();" class="menu-item" data-tooltip="Print"><span class="material-symbols-rounded">print</span></a>
-	   <a id="shareButton" class="menu-item" data-tooltip="Copy URL"><span class="material-symbols-rounded">link</span></a>
+	   <a id="shareButton" class="menu-item" data-tooltip="Share" onclick="shareContent()"><span class="material-symbols-rounded">share</span></a>
 	   <a class="menu-item" data-tooltip="Export as CSV" onclick="exportTableToExcel('exportableTable', 'ExportedTable.xlsx')"><span class="material-symbols-rounded">csv</span></a>
 	   <a class="menu-item" data-tooltip="Copy for Excel" onclick="copyTableForExcel()"><span class="material-symbols-rounded">sheets_rtl</span></a>
 	   <a class="menu-item" data-tooltip="Table Snapshot" onclick="takeSnapshotAndCopy()"><span class="material-symbols-rounded">camera_enhance</span></a>
@@ -87,7 +87,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.min.js"></script>
 	<script src="/assets/mirage_clinics_app/js/printview_script.js"></script>
 	<script>window.onbeforeprint = addPageNumbers; window.onafterprint = removePageNumbers;</script>
-	<script>window.addEventListener('load', function() {applyWatermark('{{ name }}');});
+	<script>window.addEventListener('load', function() {applyWatermark('{{ name }}');});</script>
 </script>
 
 </body>

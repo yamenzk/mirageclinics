@@ -1,10 +1,20 @@
+## [1.0.4] - 2024-04-13
+### Improved
+- Refractored `printview.html` by moving the logic responsible for menu share button to `printview_script.js`.
+
+### UI
+- Changed the icon for `shareButton` in `nav`.
+
+### Fixed
+- Fixed overlap and potential conflict in the event listeners of the `applyWatermark()` function.
+
 ## [1.0.3] - 2024-04-13
 ### Fixed
-- Fixed a bug in printview.html (Replaced {{doc.name}} with {{name}} )
+- Fixed a bug in `printview.html` (Replaced `{{doc.name}}` with `{{name}}` )
 
 ## [1.0.2] - 2024-04-13
 ### Added
-- Attempting to run applyWatermark directly from printview.html
+- Attempting to run applyWatermark directly from `printview.html`
 
 
 ## [1.0.1] - 2024-04-13
@@ -19,4 +29,4 @@
 - Deprecated the old modal in favor of `Sweet Alert`.
 
 ### Removed
-- Removed drawDynamicTextOnCanvas().
+- Removed `drawDynamicTextOnCanvas()`.

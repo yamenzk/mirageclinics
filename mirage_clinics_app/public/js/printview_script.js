@@ -113,50 +113,49 @@ async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
     }
 }
 function applyWatermark(docName) {
-    document.addEventListener('DOMContentLoaded', function() {
-        const pageSign = document.getElementById('-page-sign');
-        if (!pageSign) {
-            console.error('Element with ID -page-sign not found.');
-            return;
+    const pageSign = document.getElementById('-page-sign');
+    if (!pageSign) {
+        console.error('Element with ID -page-sign not found.');
+        return;
+    }
+
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const fontSize = 10; // Size of the font
+    const text = docName; // The watermark text
+    const stepX = 90; // Step size for repeating the text horizontally
+    const stepY = 40; // Step size for repeating the text vertically
+
+    canvas.width = 250; // Set the dimensions of the canvas
+    canvas.height = 90;
+
+    // Set styles for the text
+    ctx.font = `${fontSize}px Arial`;
+    ctx.fillStyle = 'rgba(150, 150, 150, 0.5)'; // Semi-transparent text
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate(-45 * Math.PI / 180); // Rotate the context for diagonal text
+
+    // Repeat the text vertically and horizontally
+    let alternate = 0; // Variable to alternate start position
+    for (let y = -canvas.height; y < canvas.height * 2; y += stepY) {
+        alternate = (alternate === 0) ? stepX / 3 : 0; // Alternate the starting x position
+        for (let x = -canvas.width + alternate; x < canvas.width * 2; x += stepX) {
+            ctx.fillText(text, x, y);
         }
+    }
 
-        // Create a canvas element
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const fontSize = 10; // Size of the font
-        const text = docName; // The watermark text
-        const stepX = 90; // Step size for repeating the text horizontally
-        const stepY = 40; // Step size for repeating the text vertically
+    ctx.restore();
 
-        canvas.width = 250; // Set the dimensions of the canvas
-        canvas.height = 90;
+    // Convert the canvas to a data URL
+    const dataUrl = canvas.toDataURL('image/png');
 
-        // Set styles for the text
-        ctx.font = `${fontSize}px Arial`;
-        ctx.fillStyle = 'rgba(150, 150, 150, 0.5)'; // Semi-transparent text
-        ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate(-45 * Math.PI / 180); // Rotate the context for diagonal text
-
-        // Repeat the text vertically and horizontally
-        let alternate = 0; // Variable to alternate start position
-        for (let y = -canvas.height; y < canvas.height * 2; y += stepY) {
-            alternate = (alternate === 0) ? stepX / 3 : 0; // Alternate the starting x position
-            for (let x = -canvas.width + alternate; x < canvas.width * 2; x += stepX) {
-                ctx.fillText(text, x, y);
-            }
-        }
-
-        ctx.restore();
-
-        // Convert the canvas to a data URL
-        const dataUrl = canvas.toDataURL('image/png');
-
-        // Apply the canvas as a background image to the -page-sign div
-        pageSign.style.backgroundImage = `url('${dataUrl}')`;
-        pageSign.style.backgroundRepeat = 'repeat';
-    });
+    // Apply the canvas as a background image to the -page-sign div
+    pageSign.style.backgroundImage = `url('${dataUrl}')`;
+    pageSign.style.backgroundRepeat = 'repeat';
 }
+
 
 // Watermarks Images
 function watermarkSignature(signatureBase64, employeeName, date, docName) {
@@ -336,4 +335,20 @@ async function takeSnapshotAndCopy() {
             });
         }, 'image/png');
     });
+}
+function shareContent() {
+    if (navigator.share) {
+        const doctype = "{{doctype}}"; // Ensure you replace this with actual data or pass as a parameter
+        const name = "{{name}}"; // Ensure you replace this with actual data or pass as a parameter
+        const url = '{{frappe.get_url() + '/' + doctype.replace(' ', '%20') + '/' + name + '?key=' + frappe.get_doc(doctype, name).get_signature()}}'; // Construct the URL dynamically
+
+        navigator.share({
+            title: `${doctype} - ${name}`,  // Optional: Title of the content to share
+            url: url  // The URL you want to share
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing:', error));
+    } else {
+        console.log('Web Share API is not supported in your browser.');
+    }
 }
