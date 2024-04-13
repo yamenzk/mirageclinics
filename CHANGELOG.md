@@ -1,3 +1,7 @@
+## [1.0.5] - 2024-04-13
+### Fixed
+- Multiple bugs related to the order functions are being run.
+
 ## [1.0.4] - 2024-04-13
 ### Improved
 - Refractored `printview.html` by moving the logic responsible for menu share button to `printview_script.js`.
