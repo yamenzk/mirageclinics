@@ -1,3 +1,7 @@
+## [1.0.6] - 2024-04-13
+### Added
+- Created the Jinja Block `mirage_footer` to be used universally within any print format. Use as `{{mirage_footer}}`
+
 ## [1.0.5.x] - 2024-04-13
 ### Fixed
 - Multiple bugs related to the order functions are being run.
