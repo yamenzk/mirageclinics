@@ -1,6 +1,11 @@
+## [1.0.3] - 2024-04-13
+### Fixed
+- Fixed a bug in printview.html (Replaced {{doc.name}} with {{name}} )
+
 ## [1.0.2] - 2024-04-13
 ### Added
 - Attempting to run applyWatermark directly from printview.html
+
 
 ## [1.0.1] - 2024-04-13
 ### Added
@@ -15,6 +20,3 @@
 
 ### Removed
 - Removed drawDynamicTextOnCanvas().
-
-### Fixed
-- Fixed a bug in user authentication flow causing crashes under certain conditions.
