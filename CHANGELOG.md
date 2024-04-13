@@ -1,3 +1,7 @@
+## [1.0.8] - 2024-04-13
+### Fix
+- Fixed a bug in the share button of the nav.
+
 ## [1.0.7] - 2024-04-13
 ### Removed
 - Reverted changes made in `v.1.0.6.x`.

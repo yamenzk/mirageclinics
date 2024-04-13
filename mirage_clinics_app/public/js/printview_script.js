@@ -338,9 +338,11 @@ async function takeSnapshotAndCopy() {
 }
 function shareContent() {
     if (navigator.share) {
-        const doctype = "{{doctype}}"; // Ensure you replace this with actual data or pass as a parameter
+        const doctype = "{{doctype.replace(' ', '%20'}}/"; // Ensure you replace this with actual data or pass as a parameter
         const name = "{{name}}"; // Ensure you replace this with actual data or pass as a parameter
-        const url = '{{frappe.get_url() + '/' + doctype.replace(' ', '%20') + '/' + name + '?key=' + frappe.get_doc(doctype, name).get_signature()}}'; // Construct the URL dynamically
+        const base = '{{frappe.get_url}}/'
+        const key = '?key={{frappe.get_doc(doctype, name).get_signature()}}'
+        const url = base + doctype + name + key;
 
         navigator.share({
             title: `${doctype} - ${name}`,  // Optional: Title of the content to share
