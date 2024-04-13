@@ -5,7 +5,7 @@ app_description = "Mirage Clinics Customizations"
 app_email = "it@mirageclinics.com"
 app_license = "mit"
 app_include_css = "/assets/mirage_clinics_app/css/printview_custom.css"
-app_include_js = "/assets/your_custom_app/js/printview_script.js"
+app_include_js = "/assets/mirage_clinics_app/js/printview_script.js"
 # required_apps = []
 
 # Includes in <head>
