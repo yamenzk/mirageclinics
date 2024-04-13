@@ -112,36 +112,52 @@ async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
         }
     }
 }
-// Watermarks Signature Field
-function drawDynamicTextOnCanvas(docName) {
+function applyWatermark(docName) {
     document.addEventListener('DOMContentLoaded', function() {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const text = docName; // Use function parameter for dynamic text
-        ctx.font = '16px Arial'; // Customize your font
-        ctx.fillStyle = '#cccccc70'; // Text color
-        const stepX = 50; // Horizontal step for text repetition
-        const stepY = 40; // Vertical step for text repetition
+        const pageSign = document.getElementById('-page-sign');
+        if (!pageSign) {
+            console.error('Element with ID -page-sign not found.');
+            return;
+        }
 
-        // Loop through the canvas area based on step values
-        for (let x = 0; x < canvas.width; x += stepX) {
-            for (let y = 0; y < canvas.height; y += stepY) {
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.rotate(-45 * Math.PI / 180); // Rotate text for diagonal effect
-                ctx.fillText(text, 0, 0); // Draw text at current position
-                ctx.restore();
+        // Create a canvas element
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const fontSize = 10; // Size of the font
+        const text = docName; // The watermark text
+        const stepX = 90; // Step size for repeating the text horizontally
+        const stepY = 40; // Step size for repeating the text vertically
+
+        canvas.width = 250; // Set the dimensions of the canvas
+        canvas.height = 90;
+
+        // Set styles for the text
+        ctx.font = `${fontSize}px Arial`;
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.5)'; // Semi-transparent text
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(-45 * Math.PI / 180); // Rotate the context for diagonal text
+
+        // Repeat the text vertically and horizontally
+        let alternate = 0; // Variable to alternate start position
+        for (let y = -canvas.height; y < canvas.height * 2; y += stepY) {
+            alternate = (alternate === 0) ? stepX / 3 : 0; // Alternate the starting x position
+            for (let x = -canvas.width + alternate; x < canvas.width * 2; x += stepX) {
+                ctx.fillText(text, x, y);
             }
         }
 
-        // Optional: Convert canvas to an image and set as background
-        const div = document.getElementById('-page-sign');
-        if (div) { // Ensure div exists
-            div.style.backgroundImage = `url(${canvas.toDataURL()})`;
-            div.style.backgroundRepeat = 'repeat';
-        }
+        ctx.restore();
+
+        // Convert the canvas to a data URL
+        const dataUrl = canvas.toDataURL('image/png');
+
+        // Apply the canvas as a background image to the -page-sign div
+        pageSign.style.backgroundImage = `url('${dataUrl}')`;
+        pageSign.style.backgroundRepeat = 'repeat';
     });
 }
+
 // Watermarks Images
 function watermarkSignature(signatureBase64, employeeName, date, docName) {
     return new Promise((resolve, reject) => {
