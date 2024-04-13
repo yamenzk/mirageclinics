@@ -1,3 +1,7 @@
+## [1.0.6.1] - 2024-04-13
+### Removed
+- Removed `<div id="-signature">{% if not doc.custom_signatures[0] %}<button class="-no-print openModalButton -modern-button" data-action="Sign Document">Sign Document</button>{% else %}<img src="{{doc.custom_signatures[0].signature_image}}">{% endif %}</div>` From the footer. Will be injected into `#-page-sign` later using JS.
+
 ## [1.0.6] - 2024-04-13
 ### Added
 - Created the Jinja Block `mirage_footer` to be used universally within any print format. Use as `{{mirage_footer}}`
