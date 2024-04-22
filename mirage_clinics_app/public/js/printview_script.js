@@ -57,7 +57,7 @@ function applyDynamicColors(cardId) {
 
 // Page Numbering
 function addPageNumbers() {
-    var totalPages = Math.ceil(document.body.scrollHeight / 870);
+    var totalPages = Math.ceil(document.body.scrollHeight / 850);
     for (var i = 1; i <= totalPages; i++) {
       var pageNumberDiv = document.createElement("div");
       var pageNumber = document.createTextNode("Page " + i + " of " + totalPages);

@@ -1,3 +1,7 @@
+## [1.0.9] - 2024-04-22
+### Fix
+- Modified calculations in the page numbering function.
+
 ## [1.0.8] - 2024-04-13
 ### Fix
 - Fixed a bug in the share button of the nav.
