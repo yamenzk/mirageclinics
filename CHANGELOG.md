@@ -1,3 +1,7 @@
+## [1.1.1] - 2024-04-24
+### Improved
+- Refractored `addPageNumbers` function to allow passing the page height i.e., `addPageNumbers(850);` from front-end for more control.
+
 ## [1.1.0] - 2024-04-24
 ### Removed
 - Removed page numbers from introductory statement.

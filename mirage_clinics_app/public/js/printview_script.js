@@ -56,8 +56,8 @@ function applyDynamicColors(cardId) {
 }
 
 // Page Numbering
-function addPageNumbers() {
-    var totalPages = Math.ceil(document.body.scrollHeight / 850);
+function addPageNumbers(pageHeight) {
+    var totalPages = Math.ceil(document.body.scrollHeight / pageHeight);
     for (var i = 1; i <= totalPages; i++) {
       var pageNumberDiv = document.createElement("div");
       var pageNumber = document.createTextNode("Page " + i + " of " + totalPages);
@@ -65,10 +65,9 @@ function addPageNumbers() {
       pageNumberDiv.style.position = "absolute";
       const pos = 55;
       if (i === 1) {
-          pageNumberDiv.style.top = pos + "px" ;
+          pageNumberDiv.style.top = pos + "px";
       } else {
-          pageNumberDiv.style.top = 1123 * (i - 1) + 55 + "px";
-          //pageNumberDiv.style.top = 1123.750 * (i - 1) + (pos * (i - 1)) + "px";
+          pageNumberDiv.style.top = (1123 * (i - 1) + 55) + "px";
       }
       pageNumberDiv.style.webkitPrintColorAdjust = 'exact';
       pageNumberDiv.appendChild(pageNumber);
@@ -76,7 +75,7 @@ function addPageNumbers() {
       pageNumberDiv.style.left = "calc(100% - (" + pageNumberDiv.offsetWidth + "px + 12px))";
       pageNumberDiv.style.backgroundColor = "#00545c";
     }
-  }
+}
   
   function removePageNumbers() {
     document.querySelectorAll('.pageNumber').forEach(function(node) {

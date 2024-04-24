@@ -75,7 +75,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.min.js"></script>
 	<script src="/assets/mirage_clinics_app/js/printview_script.js"></script>
 	{% if doctype != "Introductory Statement" %}
-	<script defer>window.onbeforeprint = addPageNumbers; window.onafterprint = removePageNumbers;</script>
 	<script defer>applyWatermark('{{ name }}');</script>
 	{% endif %}
 
