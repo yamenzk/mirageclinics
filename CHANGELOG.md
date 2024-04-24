@@ -1,3 +1,7 @@
+## [1.1.0] - 2024-04-24
+### Removed
+- Removed page numbers from introductory statement.
+
 ## [1.0.9] - 2024-04-22
 ### Fix
 - Modified calculations in the page numbering function.
