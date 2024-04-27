@@ -1,3 +1,7 @@
+## [1.1.2] - 2024-04-27
+### Attempt
+- Attempting to improve `sendBase64UrlInChunks` and improve its efficiency and speed by 5 folds.
+
 ## [1.1.1] - 2024-04-24
 ### Improved
 - Refractored `addPageNumbers` function to allow passing the page height i.e., `addPageNumbers(850);` from front-end for more control.

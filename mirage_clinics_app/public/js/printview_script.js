@@ -86,18 +86,20 @@ function addPageNumbers(pageHeight) {
 async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
     const MAX_CHUNK_SIZE = 1800; // Adjust based on your server's URL length limit
     const totalChunks = Math.ceil(base64Url.length / MAX_CHUNK_SIZE);
+    const maxParallelRequests = 5; // Number of parallel requests
+    let activeRequests = 0;
+    let i = 0;
 
-    for (let i = 0; i < totalChunks; i++) {
-        const chunk = base64Url.substring(i * MAX_CHUNK_SIZE, (i + 1) * MAX_CHUNK_SIZE);
+    const sendChunk = async (index) => {
+        const chunk = base64Url.substring(index * MAX_CHUNK_SIZE, (index + 1) * MAX_CHUNK_SIZE);
         const params = new URLSearchParams({
             docName: docName,
             docDoctype: docDoctype,
-            chunkIndex: i,
+            chunkIndex: index,
             totalChunks: totalChunks,
             chunk: chunk
         });
 
-        // Await the fetch call to ensure it's completed before proceeding to the next chunk
         try {
             const response = await fetch(`/api/method/storeData/storeSignature?${params.toString()}`);
             if (!response.ok) {
@@ -107,10 +109,30 @@ async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
             console.log('Chunk sent successfully:', data);
         } catch (error) {
             console.error('Error sending chunk:', error);
-            break; // Exit the loop if an error occurs
+            if (--retries > 0) {
+                console.log(`Retrying chunk ${index}, ${retries} retries left`);
+                await sendChunk(index); // Retry sending the chunk
+            }
+        } finally {
+            activeRequests--;
+        }
+    };
+
+    while (i < totalChunks) {
+        if (activeRequests < maxParallelRequests) {
+            activeRequests++;
+            sendChunk(i++).catch(err => console.error('Error in sending:', err));
+        } else {
+            await new Promise(resolve => setTimeout(resolve, 100)); // Pause before retrying to allow some requests to complete
         }
     }
+
+    // Wait for all active requests to complete
+    while (activeRequests > 0) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
 }
+
 function applyWatermark(docName) {
     const pageSign = document.getElementById('-page-sign');
     if (!pageSign) {
