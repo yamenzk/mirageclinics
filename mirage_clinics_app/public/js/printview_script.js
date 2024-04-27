@@ -84,9 +84,12 @@ function addPageNumbers(pageHeight) {
   }
 // Sends Images via API
 async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
-    const MAX_CHUNK_SIZE = 3650; // Adjust based on your server's URL length limit
+    const MAX_CHUNK_SIZE = 3000; // Adjust based on your server's URL length limit
     const totalChunks = Math.ceil(base64Url.length / MAX_CHUNK_SIZE);
-    console.log(totalChunks)
+    console.log(totalChunks);
+
+    // Create an array to hold all the fetch promises
+    const fetchPromises = [];
 
     for (let i = 0; i < totalChunks; i++) {
         const chunk = base64Url.substring(i * MAX_CHUNK_SIZE, (i + 1) * MAX_CHUNK_SIZE);
@@ -98,20 +101,32 @@ async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
             chunk: chunk
         });
 
-        // Await the fetch call to ensure it's completed before proceeding to the next chunk
-        try {
-            const response = await fetch(`/api/method/storeData/storeSignature?${params.toString()}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            console.log('Chunk sent successfully:', data);
-        } catch (error) {
-            console.error('Error sending chunk:', error);
-            break; // Exit the loop if an error occurs
-        }
+        // Instead of awaiting each fetch call, push the promise into the array
+        fetchPromises.push(
+            fetch(`/api/method/storeData/storeSignature?${params.toString()}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Chunk sent successfully:', data);
+                })
+                .catch(error => {
+                    console.error('Error sending chunk:', error);
+                })
+        );
+    }
+
+    // Use Promise.all to wait for all fetch requests to complete
+    try {
+        await Promise.all(fetchPromises);
+    } catch (error) {
+        console.error('Error in sending chunks:', error);
     }
 }
+
 function applyWatermark(docName) {
     const pageSign = document.getElementById('-page-sign');
     if (!pageSign) {
