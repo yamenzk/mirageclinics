@@ -86,7 +86,9 @@ function addPageNumbers(pageHeight) {
 async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
     const MAX_CHUNK_SIZE = 1950; // Adjust based on your server's URL length limit
     const totalChunks = Math.ceil(base64Url.length / MAX_CHUNK_SIZE);
-    console.log(totalChunks)
+    console.log(totalChunks);
+
+    const promises = [];
 
     for (let i = 0; i < totalChunks; i++) {
         const chunk = base64Url.substring(i * MAX_CHUNK_SIZE, (i + 1) * MAX_CHUNK_SIZE);
@@ -98,20 +100,26 @@ async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
             chunk: chunk
         });
 
-        // Await the fetch call to ensure it's completed before proceeding to the next chunk
-        try {
-            const response = await fetch(`/api/method/storeData/storeSignature?${params.toString()}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            console.log('Chunk sent successfully:', data);
-        } catch (error) {
-            console.error('Error sending chunk:', error);
-            break; // Exit the loop if an error occurs
-        }
+        // Push the fetch promise to the array without awaiting here
+        promises.push(fetch(`/api/method/storeData/storeSignature?${params.toString()}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => console.log('Chunk sent successfully:', data))
+            .catch(error => {
+                console.error('Error sending chunk:', error);
+                break; // Continue with other requests even if one fails
+            })
+        );
     }
+
+    // Wait for all the promises to resolve
+    await Promise.all(promises);
 }
+
 function applyWatermark(docName) {
     const pageSign = document.getElementById('-page-sign');
     if (!pageSign) {
