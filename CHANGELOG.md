@@ -1,6 +1,6 @@
-## [1.1.2.x] - 2024-04-27
-### Attempts
-- Attempting to improve `sendBase64UrlInChunks` and improve its efficiency and speed by 5 folds.
+## [1.1.2] - 2024-04-27
+### Improved
+- Slight improve to chunk size of `sendBase64UrlInChunks`.
 
 ## [1.1.1] - 2024-04-24
 ### Improved
