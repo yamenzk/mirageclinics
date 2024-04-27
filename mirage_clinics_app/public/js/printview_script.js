@@ -82,7 +82,7 @@ function addPageNumbers(pageHeight) {
       node.parentNode.removeChild(node);
     });
   }
-// Sends Images via API
+
 async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
     const MAX_CHUNK_SIZE = 1950; // Adjust based on your server's URL length limit
     const totalChunks = Math.ceil(base64Url.length / MAX_CHUNK_SIZE);
