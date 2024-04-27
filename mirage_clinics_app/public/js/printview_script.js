@@ -86,37 +86,32 @@ function addPageNumbers(pageHeight) {
 async function sendBase64UrlInChunks(base64Url, docName, docDoctype) {
     const MAX_CHUNK_SIZE = 4000; // Adjust based on your server's URL length limit
     const totalChunks = Math.ceil(base64Url.length / MAX_CHUNK_SIZE);
-  
-    const chunkPromises = [];
+    console.log(totalChunks)
+
     for (let i = 0; i < totalChunks; i++) {
-      const chunk = base64Url.substring(i * MAX_CHUNK_SIZE, (i + 1) * MAX_CHUNK_SIZE);
-      const params = new URLSearchParams({
-        docName: docName,
-        docDoctype: docDoctype,
-        chunkIndex: i,
-        totalChunks: totalChunks,
-        chunk: chunk
-      });
-  
-      chunkPromises.push(fetch(`/api/method/storeData/storeSignature?${params.toString()}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => console.log('Chunk sent successfully:', data))
-        .catch(error => {
-          console.error('Error sending chunk:', error);
-        })
-      );
+        const chunk = base64Url.substring(i * MAX_CHUNK_SIZE, (i + 1) * MAX_CHUNK_SIZE);
+        const params = new URLSearchParams({
+            docName: docName,
+            docDoctype: docDoctype,
+            chunkIndex: i,
+            totalChunks: totalChunks,
+            chunk: chunk
+        });
+
+        // Await the fetch call to ensure it's completed before proceeding to the next chunk
+        try {
+            const response = await fetch(`/api/method/storeData/storeSignature?${params.toString()}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log('Chunk sent successfully:', data);
+        } catch (error) {
+            console.error('Error sending chunk:', error);
+            break; // Exit the loop if an error occurs
+        }
     }
-  
-    // Wait for all chunks to be sent asynchronously
-    await Promise.all(chunkPromises);
-    console.log('All chunks sent');
-  }
-  
+}
 function applyWatermark(docName) {
     const pageSign = document.getElementById('-page-sign');
     if (!pageSign) {
