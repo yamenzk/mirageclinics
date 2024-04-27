@@ -1,6 +1,6 @@
-## [1.1.2 - 1.1.4] - 2024-04-27
+## [1.1.2 - 1.1.5] - 2024-04-27
 ### Improved
-- Improvements made to make chunk sending faster `sendBase64UrlInChunks`.
+- `sendBase64UrlInChunks` has been improved. Speed in chunk sending has been doubled (~ 20 Seconds reduced).
 
 ## [1.1.1] - 2024-04-24
 ### Improved
