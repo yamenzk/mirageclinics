@@ -1,3 +1,7 @@
+## [1.1.3] - 2024-04-27
+### Improved
+- Attempt to change `sendBase64UrlInChunks` to send multiple chunks in one time.
+
 ## [1.1.2] - 2024-04-27
 ### Improved
 - Slight improve to chunk size of `sendBase64UrlInChunks`.
