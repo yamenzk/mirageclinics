@@ -2,8 +2,12 @@
 <html lang="{{ lang }}" dir="{{ layout_direction }}">
 <head>
 	{% if doctype == "Request for Quotation" %}
-		<meta property="og:image" content="{{frappe.get_url()}}/files/rfq3.png">
+		<meta property="og:image" content="{{frappe.get_url()}}/files/rfq-new.png">
 		<meta property="og:description" content="Kindly provide us with your most competitive quote for the attached Request for Quotation (RFQ). We appreciate your prompt response. Thank you!">
+	{% endif %}
+	{% if doctype == "Purchase Order" %}
+		<meta property="og:image" content="{{frappe.get_url()}}/files/po.png">
+		<meta property="og:description" content="Kindly approve this purchase order to finalize the procurement process. Thank you!">
 	{% endif %}
 	<meta property="og:url" content="{{frappe.get_url() + '/' + doctype.replace(' ', '%20') + '/' + name + '?key=' + frappe.get_doc(doctype, name).get_signature()}}">
 	<meta property="og:type" content="website">

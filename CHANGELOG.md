@@ -1,3 +1,7 @@
+## [1.1.9] - 2024-05-06
+### Added
+- Updated META for Purchase Order and RFQ
+
 ## [1.1.8] - 2024-05-06
 ### Added
 - Text for sharing a document
