@@ -360,8 +360,14 @@ function shareContent() {
         const url = base + doctype + name + key;
 
         navigator.share({
-            title: `${doctype} - ${name}`,  // Optional: Title of the content to share
-            url: url  // The URL you want to share
+            title: `${doctype} - ${name}`,  
+            url: url,
+            {% if doctype == "Request For Quotation" %}
+            text: 'Dear Supplier, Mirage Dental Clinic hereby requests a quotation for the items listed in the attached document. Please review the requirements and submit your quotation online by utilizing the "Submit Quotation" button provided at the bottom of the linked document. We look forward to receiving your prompt response. Thank you.'
+            {% endif %}
+            {% if doctype == "Purchase Order" %}
+            text: 'Dear Supplier, Attached is the Purchase Order for the required goods and services as per our recent communications. We kindly request you to review the details and approve the order by clicking on "Accept Order" at the end of the document. This action will finalize our procurement process. We appreciate your prompt attention to this matter. Thank you.'
+            {% endif %}
         })
         .then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing:', error));

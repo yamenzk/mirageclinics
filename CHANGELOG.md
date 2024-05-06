@@ -1,3 +1,7 @@
+## [1.1.8] - 2024-05-06
+### Added
+- Text for sharing a document
+
 ## [1.1.7] - 2024-05-06
 ### Added
 - Page Loader
