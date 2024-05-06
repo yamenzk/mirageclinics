@@ -351,13 +351,12 @@ async function takeSnapshotAndCopy() {
         }, 'image/png');
     });
 }
-function shareContent() {
+function shareContent(doctype, name, base, key) {
     if (navigator.share) {
-        const doctype = "{{doctype.replace(' ', '%20'}}/"; // Ensure you replace this with actual data or pass as a parameter
-        const name = "{{name}}"; // Ensure you replace this with actual data or pass as a parameter
-        const base = '{{frappe.get_url}}/'
-        const key = '?key={{frappe.get_doc(doctype, name).get_signature()}}'
-        const url = base + doctype + name + key;
+        // Replace spaces in 'doctype' with '%20' and construct the URL
+        const formattedDoctype = doctype.replace(/ /g, "%20");
+        const url = `${base}${formattedDoctype}${name}?key=${key}`;
+        
         let text = '';
         if (doctype === "Request For Quotation") {
             text = 'Dear Supplier, Mirage Dental Clinic hereby requests a quotation for the items listed in the attached document. Please review the requirements and submit your quotation online by utilizing the "Submit Quotation" button provided at the bottom of the linked document. We look forward to receiving your prompt response. Thank you.';
@@ -366,7 +365,7 @@ function shareContent() {
         }
 
         navigator.share({
-            title: `${doctype} - ${name}`,  
+            title: `${doctype} - ${name}`,
             url: url,
             text: text
         })
