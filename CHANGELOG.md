@@ -1,3 +1,7 @@
+## [1.1.7] - 2024-05-06
+### Added
+- Page Loader
+
 ## [1.1.2 - 1.1.6] - 2024-04-27
 ### Improved
 - Major improvement on `sendBase64UrlInChunks`, improved speed and efficiency by more than 10 folds.
