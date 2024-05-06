@@ -1,3 +1,7 @@
+## [1.2.0] - 2024-05-06
+### Fixed
+- Sharing
+
 ## [1.1.9] - 2024-05-06
 ### Added
 - Updated META for Purchase Order and RFQ

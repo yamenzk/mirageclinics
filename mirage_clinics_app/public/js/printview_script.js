@@ -355,7 +355,7 @@ function shareContent(doctype, name, key) {
     if (navigator.share) {
         // Replace spaces in 'doctype' with '%20' and construct the URL
         const formattedDoctype = doctype.replace(/ /g, "%20");
-        const url = `/${formattedDoctype}${name}?key=${key}`;
+        const url = `/${formattedDoctype}/${name}?key=${key}`;
         
         let text = '';
         if (doctype === "Request For Quotation") {
