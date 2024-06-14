@@ -1,3 +1,7 @@
+## [1.2.1] - 2024-06-15
+### New
+- Attempt to override file.py 
+
 ## [1.2.0] - 2024-05-06
 ### Fixed
 - Sharing
