@@ -1,5 +1,12 @@
 ## [1.2.1] - 2024-06-15
-### New
+### Added
+- Custom file for `frappe/frappe/public/js/frappe/web_form/webform_script.js`
+### Removed
+- Attempts from previous version
+
+
+## [1.2.1] - 2024-06-15
+### Attempt
 - Attempt to override file.py 
 
 ## [1.2.0] - 2024-05-06

@@ -160,9 +160,6 @@ after_install = "mirage_clinics_app.install.after_install"
 
 # Overriding Methods
 # ------------------------------
-override_doctype_class = {
-    "File": "mirage_clinics_app.overrides.custom_file.CustomFile"
-}
 #
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "mirage_clinics_app.event.get_events"
